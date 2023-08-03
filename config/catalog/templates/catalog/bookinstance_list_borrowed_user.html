@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Olingan kitoblar</h1>
+
+    {% if bookinstance_list %}
+    <ul>
+        {% for bookins in bookinstance_list %}
+            <li class = '{% if bookins.is_overdue %}text-danger{% else %}text-success{% endif %}'>
+                <a href="{% url 'book-detail' bookins.book.pk%}">{{ bookins.book.title }}</a>({{ bookins.due_back }})
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Buyurtma berilgan holatdagi kitoblar yo'q</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Kitob nomi: {{ object.title }}</h1>
+
+    <p><strong>Janr: </strong>{{ object.genre }}</p>
+    <p><strong>Annotatsiya: </strong>{{ object.summary }}</p>
+    <p><strong>ISBN: </strong>{{ object.isbn }}</p>
+    <p><strong>Til: </strong>{{ object.language }}</p>
+    <p>
+        <strong>{% if book.author.all.count == 1 %}Muallif{% else %}Mualliflar{% endif %}: </strong>
+        {% for author in book.author.all %}
+            <a href="">{{ author.first_name }} {{author.last_name}}
+                {% if not forloop.last %}, {% endif %}
+            </a>
+        {% endfor %}
+    </p>
+
+    
+    <div style = 'margin-left: 20px; margin-top: 20px'>
+        <h4>Ma'lumotlar bazasidagi kitob nusxalari ro'yxati</h4>
+        {% for copy in book.bookinstance_set.all %} 
+            <hr><p class = "{% if copy.status.id == 1 %}text-success{% elif copy.status.id == 2 %}text-danger{% else %}text-warning{% endif %}">
+                {{ copy.status }}
+            </p>
+            <p><strong>Nashriyot: </strong>{{ copy.imprint }}</p>
+            <p class = 'text-muted'><strong>Inventariy nomeri: </strong>{{ copy.id }}</p>            
+            <p><strong>Ma'lumotlar bazasidagi kitob nusxasining holati: </strong>{{ copy.status }}</p>        
+        {% endfor %}
+    </div>
+    
+{% endblock %}

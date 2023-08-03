@@ -1,0 +1,38 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h3>Ma'lumotlar bazasidagi mualliflar ro'yxati</h3>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Ism</th>
+            <th>Familiya</th>
+            <th></th>
+        </thead>
+
+    {% if authors %}    
+        {% for author in authors.all %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.first_name }}</td>
+                <td>{{ author.last_name }}</td>
+                <td>
+                    <a href="/edit1/{{ author.id }}">O'zgartirish</a>
+                    <a href="/delete/{{ author.id }}">O'chirish</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <p>Bazamizda mualliflar yo'q</p>
+    {% endif %}
+    </table>
+
+    <h3>Ma'lumotlar bazasiga kitob mualliflarini qo'shish</h3>
+    <form action="/create/" method = 'POST'>
+        {%  csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Saqlash" />
+    </form>
+{% endblock %}

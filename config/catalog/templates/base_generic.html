@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Kitoblar olami{% endblock %}</title>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width = device-width, initial-scale = 1'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+        <script src='https://maxcdn.bootstrapcdn.com/boostrap/3.3.7/js/bootstrap.min.js'></script>
+
+        <style>
+            table, tr, th{
+                border: 5px solid aquamarine;
+                border-radius: 100%;
+                margin: 10px 10px 10px 10px;
+            }
+        </style>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+        {% block head %}
+            <img src="{% static 'images/logotip.jpg' %}"
+            style = 'width: 100px; height: 100px;'' align='absmiddle'>
+            <font size=7 color="blue">"Kitoblar olami" sayti</font>
+        {% endblock %}
+
+    </head>
+    <body>
+        <div class = 'container-fluid'>
+            <div class = 'row'>
+                <div class = 'col-sm-2'>
+                {% block sidebar %}   
+                <ul class = 'sidebar-nav'>
+                    <li><a href="{% url 'index' %}">Bosh sahifa</a></li>
+                    <li><a href="{% url 'books' %}">Barcha kitoblar</a></li>
+                    <li><a href="{% url 'authors' %}">Hamma mualliflar</a></li>
+                    <li><a href="{% url 'authors_add' %}">Mualliflarni tahrirlash</a></li>
+                    <li><a href="{% url 'book_create' %}">Kitob qo'shish</a></li>
+                    {% if user.is_authenticated %}
+                        <li>Foydalanuvchi: {{ user.get_username }}</li>
+                        <li><a href="{% url 'my-borrowed' %}">Mening buyurtmalarim</a></li>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+                    {% endif %}
+                </ul>
+                {% endblock %}
+                </div>
+                <div class = 'col-sm-10'>
+                    {% block content %}{% endblock %}
+
+                    {% block pagination %}
+                    {% if is_paginated %}
+                        <div class = 'pagination'>
+                            <div class = 'page-links'>
+                                {% if page_obj.has_previous %}
+                                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">
+                                        Avvalgi
+                                    </a>
+                                {% endif %}
+                                <span class = 'page-current'>
+                                    Jami {{ page_obj.paginator.num_pages }} sahifadan {{ page_obj.number }} - sahifa.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">
+                                        Keyingi
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endblock %}
+
+                    {% block footer %}
+                        {% block copyright %}
+                        <p>Copyright OOO "Insonlar va kitoblar", 2020. Barcha huquqlar himoyalangan</p>
+                        {% endblock %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

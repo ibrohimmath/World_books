@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Ma'lumotlar bazasidagi kitoblar ro'yxati</h1>
+    {% if object_list %}
+    <ul>
+        {% for object in object_list %}
+            <li>
+                <a href="{{ object.get_absolute_url }}">
+                    {{ object.title }}
+                </a>({{ object.genre }})
+                <a href="/book/update/{{ object.id }}">O'zgartirish</a> |
+                <a href="/book/delete/{{ object.id }}">O'chirish</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Bazamizda kitoblar yo'q</p>
+    {% endif %}
+{% endblock %}
+
+<!-- <a href="{{ object.get_absolute_url }}">
+    {{ object.title }}
+</a>({{ object.genre }}) -->

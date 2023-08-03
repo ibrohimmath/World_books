@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Ma'lumotlar bazasidagi mualliflar ro'yxati</h1>
+    {% if author_list %}
+        {% for author in author_list.all %}
+            <p>{{ author.first_name }} {{ author.last_name }}
+                {% if author.date_of_birth %}<strong class = 'text-success'>Tug'ilgan sanasi - </strong>{{ author.date_of_birth }}{% endif %}
+                {% if author.date_of_birth and author.date_of_death %}<span class = 'muted'> | </span>{% endif %}
+                {% if author.date_of_death %}<strong class = 'text-danger'>O'lgan sanasi - </strong>{{ author.date_of_death }}{% endif %}
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>Bizning bazamizda mualliflar yo'q</p>
+    {% endif %}
+{% endblock %}

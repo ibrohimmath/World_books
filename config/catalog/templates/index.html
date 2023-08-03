@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Bosh sahifa</h1>
+
+    <p><em>Kitoblar olami</em>ga xush kelibsiz, Bu Djangoda yozilgan juda oddiy veb-sayt. 
+        Pycharm ishtirokida o'quv namuna sifatida python dasturlash tili yordamida ishlab chiqilgan.
+    </p>
+    <ul>
+        <li><strong>Kitoblar soni: </strong>{{ num_books }}</li>
+        <li><strong>Kitob nusxalari soni: </strong>{{ num_instances }}</li>
+        <li><strong>Buyurtma qilingan kitob nusxalari soni: </strong>{{ num_instances_available }}</li>
+        <li><strong>Kitob mualliflari soni: </strong>{{ num_authors }}</li>
+    </ul>
+    <p>Shu sahifaga tashrif buyurishlar soni - {{ num_visits }}</p>
+{% endblock %}

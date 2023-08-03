@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h3>Ma'lumotlar bazasidagi mualliflar ro'yxati</h3>
+    <h4>{{ author.first_name }} {{ author.last_name }}</h4>
+
+    <form action="" method = 'POST'>
+        {% csrf_token %}
+        <p><label>Ismni o'zgartiring</label><br>
+            <input type="text" name = 'first_name' value = "{{ author.first_name }}">
+        </p>
+        <p><label>Familiyani o'zgartiring</label><br>
+            <input type="text" name = 'last_name' value = "{{ author.last_name }}">
+        </p>
+        <p><label>Tug'ilgan sanani o'zgartiring</label><br>
+            <input type="date" name = 'date_of_birth' value = "{{ author.date_of_birth|date:'Y-m-d' }}">
+        </p>
+        <p><label>O'lim sanasini o'zgartiring</label><br>
+            <input type="date" name = 'date_of_death' value = "{{ author.date_of_death|date:'Y-m-d' }}">
+        </p>
+        <input type="submit" value = "Saqlash" />
+    </form>
+
+{% endblock %}
